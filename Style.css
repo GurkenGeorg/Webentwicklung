@@ -1,0 +1,27 @@
+body{
+   background: grey 
+}
+input {
+    background-color: black;
+    color:whitesmoke;
+    padding: 10px 20px;
+     border: 2px solid purple;
+     font-family: monospace;
+
+     
+
+}
+img {
+    width: 500x; /* 200 Pixel breit */
+    height: 500px; /* 150 Pixel hoch */
+  }
+
+
+body{ font-family: monospace;
+
+}
+body {color: whitesmoke}
+
+h1{text-align: center; }
+
+
