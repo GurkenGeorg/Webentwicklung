@@ -10,4 +10,3 @@ Der Spieler hat insgesamt drei Leben. Gibt er ein falsches Wort ein, verliert er
 
 Dieses Spiel kombiniert Spaß mit logischem Denken und erweitert spielerisch den Wortschatz der Spieler. 
 
-ich hab mies bock
