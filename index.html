@@ -1,18 +1,150 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artistbewertung</title>
-    <link rel="stylesheet" href="Style.css">
-    
-  </head>
-  <body>
-    <h1>4 Bilder 1 Wort</h1>
-   
-    <input type="button" value="start
-    ">
-    <img src="Bilder/" alt="">
-    
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Bilder 1 Wort</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .buchstabe {
+            width: 40px;
+            height: 50px;
+            font-size: 2rem;
+            text-align: center;
+            border: 2px solid #aaa;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .buchstabe:focus {
+            border-color: #4CAF50;
+        }
+
+        #spielbereich {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #highscore {
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .bilder-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .reihe {
+            display: flex;
+            gap: 10px;
+        }
+
+        .reihe img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Highscore oben rechts -->
+    <p id="highscore">Highscore: 0</p>
+
+    <!-- Spielbereich (direkt sichtbar) -->
+    <div id="spielbereich">
+        <h1 id="spielertitel">4 Bilder 1 Wort</h1>
+        <div id="leben">💙 💙 💙</div><br>
+
+        <div class="bilder-container">
+            <div class="reihe">
+                <img src="Bilder/Rübe.jpg" alt="Bild 1">
+                <img src="Bilder/birne.png" alt="Bild 2">
+            </div>
+            <div class="reihe">
+                <img src="Bilder/glühbirne.webp" alt="Bild 3">
+                <img src="Bilder/birne 2.jpg" alt="Bild 4">
+            </div>
+        </div>
+
+        <!-- Eingabefelder für die Antwort -->
+        <div id="eingabefelder" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+            <input type="text" maxlength="1" class="buchstabe" />
+            <input type="text" maxlength="1" class="buchstabe" />
+            <input type="text" maxlength="1" class="buchstabe" />
+            <input type="text" maxlength="1" class="buchstabe" />
+            <input type="text" maxlength="1" class="buchstabe" />
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px;">
+            <button onclick="checkAntwort()">Überprüfen</button>
+            <button onclick="eingabeLöschen()">Löschen</button>
+        </div>
+
+        <p id="ergebnis"></p>
+    </div>
+
+    <script>
+        let leben = 3;
+        const richtigeAntwort = "birne";
+        let punkte = 0;
+        let highscore = localStorage.getItem("highscore") || 0;
+        document.getElementById("highscore").innerText = "Highscore: " + highscore;
+
+        // Checke die Antwort
+        function checkAntwort() {
+            const felder = document.querySelectorAll(".buchstabe");
+            let antwort = "";
+            felder.forEach(f => antwort += f.value.toLowerCase());
+
+            if (antwort === richtigeAntwort) {
+                punkte += 10;
+                document.getElementById("ergebnis").innerHTML = "✅ Richtig! Punkte: " + punkte;
+                if (punkte > highscore) {
+                    highscore = punkte;
+                    localStorage.setItem("highscore", highscore);
+                    document.getElementById("highscore").innerText = "Highscore: " + highscore;
+                }
+            } else {
+                leben--;
+                updateLeben();
+                if (leben > 0) {
+                    document.getElementById("ergebnis").innerHTML = `❌ Falsch! Noch ${leben} Herzen übrig.`;
+                } else {
+                    document.getElementById("ergebnis").innerHTML = "💀 Keine Leben mehr! GAME OVER.";
+                    felder.forEach(f => f.disabled = true);
+                }
+            }
+        }
+
+        // Leben aktualisieren
+        function updateLeben() {
+            let lebenDiv = document.getElementById("leben");
+            lebenDiv.innerHTML = "";
+            for (let i = 0; i < leben; i++) {
+                lebenDiv.innerHTML += "💙 ";
+            }
+        }
+
+        // Eingabe löschen
+        function eingabeLöschen() {
+            const felder = document.querySelectorAll(".buchstabe");
+            felder.forEach(f => f.value = "");
+            document.getElementById("ergebnis").innerHTML = "";
+        }
+
+        // Fokus automatisch auf das nächste Feld
+        document.querySelectorAll(".buchstabe").forEach((feld, index, arr) => {
+            feld.addEventListener("input", () => {
+                if (feld.value.length === 1 && index < arr.length - 1) {
+                    arr[index + 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
 </html>
