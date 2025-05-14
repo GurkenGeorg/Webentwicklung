@@ -1,140 +1,226 @@
-/* Allgemeine Stile */
+/* Grundlayout */
 body {
+  margin: 0;
+  padding: 0;
   font-family: 'Poppins', Arial, sans-serif;
   background: linear-gradient(135deg, #4a90e2, #6ab3f8, #90d4ff);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 20px;
+  justify-content: flex-start;
 }
 
-
-
-/* Überschrift */
-h1 {
-  font-family: 'Quicksand', sans-serif;  /* Runde und weiche Schriftart */
-  color: #1f2a44;  /* Dunkles Blau für den Text */
-  font-size: 4rem;  /* Große, aber nicht zu übertriebene Schriftgröße */
-  text-transform: uppercase;  /* Alle Buchstaben in Großbuchstaben */
-  letter-spacing: 2px;  /* Abstand zwischen den Buchstaben */
-  text-shadow: none;  /* Kein Textschatten für eine klare Darstellung */
-  background: none;  /* Kein Hintergrund, nur der Text ist sichtbar */
-  color: #1f2a44;  /* Dunkles Blau als Textfarbe */
-  padding: 20px 0;
-  margin-top: 30px;  /* Abstand zum oberen Rand */
+/* Startseite */
+#startseite {
+  width: 100%;
+  max-width: 400px;
   text-align: center;
+  margin: 60px auto;
+}
+#startseite h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 2.5rem;
+  color: #1f2a44;
+  margin-bottom: 20px;
+}
+.start-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid #aaa;
+  border-radius: 8px;
+  outline: none;
+  position: center;
+}
+.start-input:focus {
+  border-color: #007BFF;
+}
+.start-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.start-button {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  
+}
+.start-button:hover {
+  background-color: #0056b3;
 }
 
+/* Highscore & Navigation */
+#highscore {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: #000;
+  font-weight: bold;
+}
+.highscore-button {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  padding: 8px 12px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.highscore-button:hover {
+  background-color: #d32f2f;
+}
+.zurueck-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 8px 12px;
+  background-color: #777;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none;
+}
+.zurueck-button:hover {
+  background-color: #555;
+}
+
+/* Gemeinsames Level-Layout für alle Levels */
+#spielbereich1,
+#spielbereich2,
+#spielbereich3 {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  margin: 100px auto 40px;
+}
+
+#spielbereich1 h2,
+#spielbereich2 h2,
+#spielbereich3 h2 {
+  font-size: 2rem;
+  color: #000;
+  margin-bottom: 8px;
+}
+#spielernamenanzeige1,
+#spielernamenanzeige2,
+#spielernamenanzeige3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
 
 /* Lebensanzeige */
-#leben {
+#leben1, #leben2, #leben3 {
   font-size: 2rem;
   margin-bottom: 20px;
   display: flex;
-  gap: 10px;
   justify-content: center;
+  gap: 8px;
 }
 
-/* Herzen Emoji Styling (optional) */
-#leben span {
-  font-size: 2rem;
-  color: #007BFF; /* Blaue Farbe für das Herz */
-}
-
-/* Animation für pulsierendes Herz */
-@keyframes pulsieren {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.2); }
-}
-
-/* Bilder-Container */
+/* Bilder-Container für alle Levels */
 .bilder-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 140px);
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
 }
-
-/* Jede Bildreihe */
-.reihe {
-  display: flex;
-  gap: 15px;
-}
-
-/* Bilder */
-img {
-  width: 160px;
-  height: 160px;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+.bilder-container img {
+  width: 140px;
+  height: 140px;
   object-fit: cover;
-  border: 4px solid #ffffff;
+  border-radius: 15px;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   transition: transform 0.3s, border-color 0.3s;
 }
-
-img:hover {
-  transform: scale(1.1);
+.bilder-container img:hover {
+  transform: scale(1.05);
   border-color: #007BFF;
 }
 
-/* Eingabefeld */
-#eingabe {
-  width: 220px;
-  padding: 12px;
-  border: 3px solid #007BFF;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  margin-top: 10px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Button */
-button {
-  padding: 12px 20px;
-  border: none;
-  background: linear-gradient(to right, #007BFF, #0056b3);
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-  margin-top: 15px; /* Abstand zwischen Eingabefeld und Button */
+/* Eingabefelder für alle Levels */
+#eingabefelder1,
+#eingabefelder2,
+#eingabefelder3 {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 .buchstabe {
-  width: 40px;
-  height: 50px;
+  width: 45px;
+  height: 55px;
   font-size: 2rem;
   text-align: center;
   border: 2px solid #aaa;
   border-radius: 8px;
-  outline: none;
+  background: #fff;
+  transition: border-color 0.3s;
 }
 .buchstabe:focus {
-  border-color: #4CAF50;
+  border-color: #007BFF;
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
+/* Button-Gruppe für alle Levels */
+.button-gruppe {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
 }
-
-/* Ergebnis-Anzeige */
-#ergebnis {
-  font-size: 1.5rem;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.3);
-  padding: 12px;
+.button-gruppe button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background: #007BFF;
+  color: white;
+  border: none;
   border-radius: 8px;
-  display: inline-block;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.button-gruppe button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Ergebnis-Box für alle Levels */
+#ergebnis,
+#ergebnis2,
+#ergebnis3 {
+  font-size: 1.3rem;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+/* Next-Level + Zurück-Button für alle Levels */
+.next-level-button,
+.zurueck-unten {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 8px auto;
+  display: block;
+  transition: background 0.2s, transform 0.2s;
+}
+.next-level-button:hover,
+.zurueck-unten:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
 }
